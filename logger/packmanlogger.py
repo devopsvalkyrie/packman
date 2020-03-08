@@ -5,8 +5,10 @@ from tabulate import tabulate
 from enum import IntEnum
 from logging import Logger
 from time import sleep
+from singleton_decorator import singleton
 
 
+@singleton
 class PackmanLogger(Logger):
 
     class LogLevel(IntEnum):
