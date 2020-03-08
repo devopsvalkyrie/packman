@@ -3,7 +3,7 @@ import time
 from logger.packmanlogger import PackmanLogger
 
 
-def retry(func, retry_count=3):
+def retry(func, retry_count=3, sleep_count=1):
 
     def retry_query(*args, **kwargs):
         for attempt in range(retry_count):
@@ -17,6 +17,6 @@ def retry(func, retry_count=3):
                                                 exception=str(ex)))
                 if attempt == retry_count-1:
                     raise ex
-                time.sleep(1)
+                time.sleep(sleep_count)
                 continue
     return retry_query
