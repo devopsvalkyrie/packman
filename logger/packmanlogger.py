@@ -10,6 +10,23 @@ from singleton_decorator import singleton
 
 @singleton
 class PackmanLogger(Logger):
+    """
+    PackmanLogger is a custom logging class which can be used to unify log format across different parts of automation.
+
+    There are several log levels:
+    CRITICAL: This log level should be used in cases there is a threat of inconsistent state after the issue occurred.
+              Termination of execution is expected after this log.
+    ERROR: This log level should be used in cases of controlled exceptions with termination of execution afterward.
+           For error level you can attach knowledge base link with complete explanation of particular error and how it
+           can be fixed.
+    WARNING: This log level should be used in cases of suspicious behaviours when no termination of execution is experted.
+             The list of warning logs (warning_list) could be sent to the email after the execution (because no one reads
+             logs when automation execution was successful).
+    INFO: This log level should be used for human readable logs.
+    DEBUG: This log level should be used to print any useful information for debugging purposes.
+    TRACE: This log level should be used to print api requests/responses for debugging. It has its ows log level because
+           api requests tent to be long and you could want to separate them from short debug messages.
+    """
 
     class LogLevel(IntEnum):
         CRITICAL = 50
@@ -36,6 +53,9 @@ class PackmanLogger(Logger):
         return self
 
     def _update_log_levels(self):
+        """
+        Private function to add custom log levels to Python logging.
+        """
         custom_log_levels = self.LogLevel
         for log_level in custom_log_levels:
             logging.addLevelName(log_level, log_level.name)
